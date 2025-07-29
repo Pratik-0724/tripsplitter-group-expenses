@@ -14,7 +14,131 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      expenses: {
+        Row: {
+          amount: number
+          created_at: string
+          id: string
+          paid_by_member_id: string
+          title: string
+          trip_id: string
+          updated_at: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          id?: string
+          paid_by_member_id: string
+          title: string
+          trip_id: string
+          updated_at?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          id?: string
+          paid_by_member_id?: string
+          title?: string
+          trip_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "expenses_paid_by_member_id_fkey"
+            columns: ["paid_by_member_id"]
+            isOneToOne: false
+            referencedRelation: "trip_members"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "expenses_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "trips"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      trip_members: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          trip_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          trip_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          trip_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "trip_members_trip_id_fkey"
+            columns: ["trip_id"]
+            isOneToOne: false
+            referencedRelation: "trips"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      trips: {
+        Row: {
+          created_at: string
+          id: string
+          member_count: number
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          member_count?: number
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          member_count?: number
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
